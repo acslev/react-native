@@ -1,17 +1,40 @@
-import {StatusBar} from 'expo-status-bar';
-import React from 'react';
-import {StyleSheet, Text, View, TextInput, Button} from 'react-native';
+import React, {useState} from 'react';
+import {Button, ScrollView, StyleSheet, Text, TextInput, View} from 'react-native';
 
 const App = () => {
+
+    const [enteredGoal, setEnteredGoal] = useState('');
+
+    const [coursedGoals, setCoursedGoals] = useState([]);
+
+    const goalInputHandler = (enteredText) => {
+        setEnteredGoal(enteredText);
+    };
+
+    const addGoalHandler = () => {
+        setCoursedGoals(prevState => [...prevState, enteredGoal]);
+    };
+
     return (
         <View style={styles.screen}>
             <View style={styles.inputContainer}>
-                <TextInput placeholder="Course Goal" style={styles.input}/>
-                <Button title="ADD"/>
-            </View>
-            <View>
+                <TextInput
+                    placeholder="Course Goal"
+                    style={styles.input}
+                    onChangeText={goalInputHandler}
+                    value={enteredGoal}
+                />
 
+                <Button
+                    title="ADD"
+                    onPress={addGoalHandler}
+                />
             </View>
+
+            <ScrollView>
+                {coursedGoals.map((goal, index) => <View key={index}
+                                                         style={styles.listItem}><Text>{goal}</Text></View>)}
+            </ScrollView>
         </View>
     );
 }
@@ -32,5 +55,12 @@ const styles = StyleSheet.create({
         borderColor: 'black',
         borderWidth: 1,
         padding: 10
+    },
+    listItem: {
+        padding: 10,
+        marginVertical: 10,
+        backgroundColor: '#ccc',
+        borderColor: 'black',
+        borderWidth: 1,
     }
 });
