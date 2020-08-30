@@ -1,73 +1,35 @@
 import React, {useState} from 'react';
-import {Button, FlatList, StyleSheet, Text, TextInput, View} from 'react-native';
+import {FlatList, StyleSheet, View} from 'react-native';
+import GoalItem from "./components/GoalInput";
+import GoalInput from "./components/GoalItem";
 
 const App = () => {
 
-    const [enteredGoal, setEnteredGoal] = useState('');
-
     const [coursedGoals, setCoursedGoals] = useState([]);
 
-    const goalInputHandler = (enteredText) => {
-        setEnteredGoal(enteredText);
-    };
-
-    const addGoalHandler = () => {
+    const addGoalHandler = (addedGoal) => {
         setCoursedGoals(prevState => [
             ...prevState,
-            {id: Math.random().toString(), value: enteredGoal}
+            {id: Math.random().toString(), value: addedGoal}
         ]);
     };
 
     return (
         <View style={styles.screen}>
-            <View style={styles.inputContainer}>
-                <TextInput
-                    placeholder="Course Goal"
-                    style={styles.input}
-                    onChangeText={goalInputHandler}
-                    value={enteredGoal}
-                />
-
-                <Button
-                    title="ADD"
-                    onPress={addGoalHandler}
-                />
-            </View>
+            <GoalInput onAddGoal={addGoalHandler}/>
 
             <FlatList
                 keyExtractor={item => item.id}
                 data={coursedGoals}
-                renderItem={itemData => (
-                <View style={styles.listItem}>
-                    <Text>{itemData.item.value}</Text>
-                </View>
-            )}/>
+                renderItem={itemData => <GoalItem title={itemData.item.value}/>}/>
         </View>
     );
 }
 
-export default App;
-
 const styles = StyleSheet.create({
     screen: {
         padding: 50,
-    },
-    inputContainer: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center'
-    },
-    input: {
-        width: '80%',
-        borderColor: 'black',
-        borderWidth: 1,
-        padding: 10
-    },
-    listItem: {
-        padding: 10,
-        marginVertical: 10,
-        backgroundColor: '#ccc',
-        borderColor: 'black',
-        borderWidth: 1,
     }
 });
+
+export default App;
