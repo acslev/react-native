@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {FlatList, StyleSheet, View} from 'react-native';
-import GoalItem from "./components/GoalInput";
-import GoalInput from "./components/GoalItem";
+import GoalItem from "./components/GoalItem";
+import GoalInput from "./components/GoalInput";
 
 const App = () => {
 
