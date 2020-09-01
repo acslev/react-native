@@ -14,6 +14,12 @@ const App = () => {
         ]);
     };
 
+    const removeGoalHandler = goalId => {
+        setCoursedGoals(prevState => {
+            return prevState.filter(goal => goal.id !== goalId);
+        })
+    };
+
     return (
         <View style={styles.screen}>
             <GoalInput onAddGoal={addGoalHandler}/>
@@ -21,7 +27,7 @@ const App = () => {
             <FlatList
                 keyExtractor={item => item.id}
                 data={coursedGoals}
-                renderItem={itemData => <GoalItem title={itemData.item.value}/>}/>
+                renderItem={itemData => <GoalItem title={itemData.item.value} id={itemData.item.id} onDelete={removeGoalHandler}/>}/>
         </View>
     );
 }
