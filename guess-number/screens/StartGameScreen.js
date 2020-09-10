@@ -25,7 +25,7 @@ const StartGameScreen = props => {
 
     const confirmInputHandler = () => {
         const chosenNumber = parseInt(enteredValue);
-        if (isNaN(chosenNumber) || chosenNumber <= 0 || chosenNumber > 90) {
+        if (isNaN(chosenNumber) || chosenNumber <= 0 || chosenNumber > 99) {
             Alert.alert(
                 'Invalid number!',
                 'Number has to be a number between 1 and 99.',
